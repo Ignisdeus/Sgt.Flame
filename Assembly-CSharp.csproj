@@ -64,6 +64,9 @@
     <Compile Include="Assets\Scripts\Gun.cs" />
     <Compile Include="Assets\Scripts\IceBlock.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Teleporter.cs" />
+    <Compile Include="Assets\Wall_Mounted.cs" />
+    <Compile Include="Assets\WallPipes.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>E:/Unity Projects/Sgt.Flame/Sgt.Flame/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>

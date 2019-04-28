@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    // Start is called before the first frame update
+    
     void Start()
     {
-        rend = GetComponent<Renderer>(); 
+      
     }
 
-    Renderer rend;
+    public Renderer rendOne, rendTwo;
     Ray ray;
     RaycastHit hit;
     float rayLenght = 10f;
     public Transform muzzle; 
     void Update()
     {
-        if(Input.GetButton("Fire1")){
+        if(Input.GetButton("Fire2")){
             ChangeColor("Fire");
             if (Physics.Raycast(muzzle.position, muzzle.TransformDirection(Vector3.forward), out hit, rayLenght)) {
 
@@ -26,7 +26,7 @@ public class Gun : MonoBehaviour
                 }
 
             }
-        } else if(Input.GetButton("Fire2")){
+        } else if(Input.GetButton("Fire1")){
             ChangeColor("Ice");
             if (Physics.Raycast(muzzle.position, muzzle.TransformDirection(Vector3.forward), out hit, rayLenght)) {
 
@@ -74,15 +74,20 @@ public class Gun : MonoBehaviour
         switch (x){
 
             case "Fire":
-                rend.material.SetColor("_Color", Color.red);
+                rendOne.material.SetColor("_Color", Color.red);
+                rendTwo.materials[1].SetColor("_Color", Color.red);
                 fire.Play();
+                ice.Stop();
                 break;
             case "Ice":
                 ice.Play();
-                rend.material.SetColor("_Color", Color.blue);
+                fire.Stop();
+                rendOne.material.SetColor("_Color", Color.blue);
+                rendTwo.materials[1].SetColor("_Color", Color.blue);
                 break;
             default:
-                rend.material.SetColor("_Color", Color.black);
+                rendOne.material.SetColor("_Color", Color.white);
+                rendTwo.materials[1].SetColor("_Color", Color.white);
                 break; 
         }
     } 

@@ -5,9 +5,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     Camera cam;
+    Vector3 resetPos;
+    CursorLockMode cLock; 
     void Start()
     {
-        cam = GetComponentInChildren<Camera>(); 
+        cam = GetComponentInChildren<Camera>();
+        cLock = CursorLockMode.Locked; 
+        Cursor.lockState = cLock;
     }
     [Range(0,100)]
     public float vertSenativity= 10, horzSenativity = 10;
@@ -41,7 +45,18 @@ public class Player : MonoBehaviour
             grounded = false; 
             GetComponent<Rigidbody>().AddForce(Vector3.up * force); 
         }
+        FallCheck();
     }
+
+    public float fallDistace; 
+    void FallCheck(){
+
+        if(transform.position.y < fallDistace){
+
+            transform.position = resetPos; 
+        }
+
+    } 
     public float force = 100; 
     public bool grounded = true; 
     private void OnCollisionEnter(Collision other)
@@ -49,6 +64,25 @@ public class Player : MonoBehaviour
         if(other.gameObject.tag =="Ground" || other.gameObject.tag == "IceBlock") {
             grounded = true;
 
+        }
+        
+    }
+    public GameObject heldGun;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag == "GunPickUp"){
+            Destroy(other.gameObject);
+            heldGun.SetActive(true);
+
+        }
+    }
+    private void OnCollisionStay(Collision other)
+    {
+
+        if(other.gameObject.tag == "Ground"){
+
+            resetPos = transform.position;
         }
         
     }
